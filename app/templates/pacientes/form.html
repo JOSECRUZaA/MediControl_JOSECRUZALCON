@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ 'Editar' if paciente else 'Crear' }} paciente</h1>
+<form method='post'>
+  <div class='mb-3'>
+    <label class='form-label'>Nombre</label>
+    <input class='form-control' name='nombre' required value='{{ paciente.nombre if paciente else '' }}'>
+  </div>
+  <div class='mb-3'>
+    <label class='form-label'>Teléfono</label>
+    <input class='form-control' name='telefono' required value='{{ paciente.telefono if paciente else '' }}'>
+  </div>
+  <button class='btn btn-primary' type='submit'>Guardar</button>
+  <a class='btn btn-secondary' href='{{ url_for('pacientes.listar') }}'>Cancelar</a>
+</form>
+{% endblock %}

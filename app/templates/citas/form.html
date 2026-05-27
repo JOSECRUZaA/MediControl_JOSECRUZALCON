@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ 'Editar' if cita else 'Crear' }} cita</h1>
+<form method='post'>
+  <div class='mb-3'>
+    <label class='form-label'>Fecha</label>
+    <input type='date' class='form-control' name='fecha' required value='{{ cita.fecha if cita else '' }}'>
+  </div>
+  <div class='mb-3'>
+    <label class='form-label'>Hora</label>
+    <input type='time' class='form-control' name='hora' required value='{{ cita.hora if cita else '' }}'>
+  </div>
+  <div class='mb-3'>
+    <label class='form-label'>Médico</label>
+    <select class='form-select' name='medico_id' required>
+      <option value=''>Seleccione un médico</option>
+      {% for medico in medicos %}
+      <option value='{{ medico.id }}' {% if cita and cita.medico_id == medico.id %}selected{% endif %}>{{ medico.nombre }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class='mb-3'>
+    <label class='form-label'>Paciente</label>
+    <select class='form-select' name='paciente_id' required>
+      <option value=''>Seleccione un paciente</option>
+      {% for paciente in pacientes %}
+      <option value='{{ paciente.id }}' {% if cita and cita.paciente_id == paciente.id %}selected{% endif %}>{{ paciente.nombre }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <button class='btn btn-primary' type='submit'>Guardar</button>
+  <a class='btn btn-secondary' href='{{ url_for('citas.listar') }}'>Cancelar</a>
+</form>
+{% endblock %}
